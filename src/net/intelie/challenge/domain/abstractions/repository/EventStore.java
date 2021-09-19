@@ -1,7 +1,17 @@
-package net.intelie.eventstorechallenge.core.domain.abstractions.repository;
+package net.intelie.challenge.domain.abstractions.repository;
 
-import net.intelie.eventstorechallenge.core.domain.abstractions.service.EventIterator;
-import net.intelie.eventstorechallenge.core.domain.models.Event;
+import net.intelie.challenge.domain.abstractions.service.EventIterator;
+import net.intelie.challenge.domain.models.Event;
+
+import java.util.List;
+
+/**
+ * An abstraction of an event store.
+ * <p>
+ * Events may be stored in memory, data files, a database, on a remote
+ * server, etc. For this challenge, you should implement an in-memory
+ * event event store.
+ */
 
 public interface EventStore {
     /**
@@ -10,6 +20,7 @@ public interface EventStore {
      * @param event
      */
     void insert(Event event);
+
 
     /**
      * Removes all events of specific type.

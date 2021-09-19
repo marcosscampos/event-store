@@ -1,8 +1,11 @@
-package net.intelie.eventstorechallenge.core.domain.abstractions.service;
+package net.intelie.challenge.domain.abstractions.service;
 
-import net.intelie.eventstorechallenge.core.domain.models.Event;
+import net.intelie.challenge.domain.models.Event;
 
-public interface EventIterator extends AutoCloseable{
+/**
+ * An iterator over an event collection.
+ */
+public interface EventIterator extends AutoCloseable {
     /**
      * Move the iterator to the next event, if any.
      *
