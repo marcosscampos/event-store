@@ -1,4 +1,4 @@
-package test;
+package main.java.net.intelie.challenge.test;
 
 import net.intelie.challenge.domain.abstractions.repository.EventStore;
 import net.intelie.challenge.domain.abstractions.service.EventIterator;
