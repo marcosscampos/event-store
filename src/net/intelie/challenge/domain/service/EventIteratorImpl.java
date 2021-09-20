@@ -10,32 +10,36 @@ import java.util.stream.Collectors;
 
 public class EventIteratorImpl implements EventIterator {
     private final ArrayList<Event> _events;
-    private int index;
+    private final Predicate<Event> predicate;
 
     public EventIteratorImpl(ArrayList<Event> events, Predicate<Event> eventPredicate) {
         this._events = (ArrayList<Event>) events.parallelStream().filter(eventPredicate).collect(Collectors.toList());
-        index = -1;
-        moveNext();
+        this.predicate = eventPredicate;
     }
 
     @Override
     public synchronized boolean moveNext() {
-        index++;
-        return _events.size() > index;
+        return _events.iterator().hasNext();
     }
 
     @Override
     public synchronized Event current() {
-        if(_events.size() <= index) {
-            throw new IllegalStateException();
+        if (!moveNext()) {
+            throw new IllegalStateException("There is no next event.");
+        } else {
+            return _events.parallelStream().filter(predicate).findFirst().get();
         }
-
-        return _events.get(index);
     }
 
     @Override
     public synchronized void remove() {
-        _events.remove(index);
+        Event event = _events.parallelStream().filter(predicate).findFirst().get();
+
+        while (_events.iterator().hasNext()) {
+            if (event == current()) {
+                _events.iterator().remove();
+            }
+        }
     }
 
     @Override

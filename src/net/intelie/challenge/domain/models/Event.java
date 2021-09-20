@@ -13,11 +13,6 @@ public class Event {
         this.timestamp = timestamp;
     }
 
-    public Event() {
-        timestamp = 0;
-        type = null;
-    }
-
     public String type() {
         return type;
     }
